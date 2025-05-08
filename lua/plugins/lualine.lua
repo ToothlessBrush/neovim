@@ -1,0 +1,17 @@
+return {
+    'nvim-lualine/lualine.nvim',
+    config = function()
+        require("lualine").setup({
+            options = { theme = "auto" }, -- change to "minimal" or "auto"
+            sections = {
+                lualine_a = { "mode" },
+                lualine_b = { "branch" },
+                lualine_c = { "filename" },
+                lualine_x = { "diagnostics", "encoding", "fileformat", "filetype" },
+                lualine_y = { "progress" },
+                lualine_z = { "location" },
+            },
+        })
+    end,
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+}
