@@ -16,6 +16,7 @@ return {
 
             -- Add other servers as needed
             lspconfig.pyright.setup({})
+            lspconfig.glsl_analyzer.setup({})
             lspconfig.ts_ls.setup({})
             lspconfig.clangd.setup({})
         end,

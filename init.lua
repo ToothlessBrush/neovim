@@ -18,6 +18,8 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end,
 })
 
+vim.lsp.inlay_hint.enable(true)
+
 -- copy to system clipboard
 vim.o.clipboard = "unnamedplus"
 -- Enable syntax and filetype plugins
@@ -50,6 +52,9 @@ vim.opt.wildmenu = true
 -- if vim.fn.filereadable(color_path) == 1 then
 --     vim.cmd('colorscheme wallbash')
 -- end
+
+------- THEME -------
+require("current-theme")
 
 -- Reuse normal background for float windows
 vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
