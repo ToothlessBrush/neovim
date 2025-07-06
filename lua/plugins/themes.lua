@@ -17,7 +17,16 @@ return {
     { "Yazeed1s/oh-lucy.nvim" },
     { "Shatur/neovim-ayu" },
     { "mcchrish/zenbones.nvim",          dependencies = { "rktjmp/lush.nvim" } },
-    { "navarasu/onedark.nvim" },
+
+    {
+        "navarasu/onedark.nvim",
+        config = function()
+            require("onedark").setup {
+                transparent = true,
+            }
+            require("onedark").load()
+        end
+    },
 
     -- Special and experimental looks
     { "rockerBOO/boo-colorscheme-nvim" },
@@ -25,5 +34,5 @@ return {
     { "tanvirtin/monokai.nvim" },
     { "loctvl842/monokai-pro.nvim" },
     { "lunarvim/darkplus.nvim" },
-    { 'Everblush/nvim',                  name = 'everblush' },
+    { 'Everblush/nvim',                name = 'everblush' },
 }

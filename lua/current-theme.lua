@@ -1,1 +1,1 @@
-vim.cmd("colorscheme everblush")
+vim.cmd("colorscheme onedark")
