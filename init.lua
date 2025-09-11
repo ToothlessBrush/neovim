@@ -1,6 +1,5 @@
 require("config.lazy")
 
-
 -- Leader key
 vim.g.mapleader = ' '
 
