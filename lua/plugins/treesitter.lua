@@ -3,10 +3,23 @@ return {
     build = ":TSUpdate",
     opts = function(_, opts)
         opts.ensure_installed = opts.ensure_installed or {}
-        vim.list_extend(opts.ensure_installed, { "rust", "toml", "wgsl" })
-
+        vim.list_extend(opts.ensure_installed, {
+            "rust",
+            "toml",
+            "wgsl",
+            "c",
+            "cpp",
+            "typescript",
+            "javascript",
+            "lua",
+            "json",
+            "yaml"
+        })
         opts.highlight = opts.highlight or {}
         opts.highlight.enable = true
+
+        opts.indent = opts.indent or {}
+        opts.indent.enable = true
 
         -- Optional: manually link highlight groups (in case your theme misses them)
         vim.api.nvim_create_autocmd("FileType", {
@@ -21,7 +34,6 @@ return {
                 ]]
             end,
         })
-
         -- Associate .wgsl files with the correct filetype
         vim.filetype.add({ extension = { wgsl = "wgsl" } })
     end,
