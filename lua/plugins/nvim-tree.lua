@@ -15,13 +15,21 @@ return {
             update_focused_file = {
                 enable = true,
             },
+            diagnostics = {
+                enable = true,
+                show_on_dirs = true,
+            },
             actions = {
                 open_file = {
-                    quit_on_open = true, -- 🚀 this closes the tree after selecting a file
+                    quit_on_open = true,
                 },
             },
+            renderer = {
+                highlight_diagnostics = true,
+            },
+            git = {
+                ignore = false,
+            }
         })
-
-        vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
     end,
 }

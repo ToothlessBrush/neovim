@@ -1,4 +1,5 @@
 require("config.lazy")
+require("config.keymaps")
 
 -- Leader key
 vim.g.mapleader = ' '
@@ -42,6 +43,16 @@ vim.opt.termguicolors = true
 
 -- Wildmenu (completion in command-line mode)
 vim.opt.wildmenu = true
+
+vim.opt.list = true
+vim.opt.listchars = {
+    tab = '→ ',
+    trail = '·',
+    nbsp = '␣',
+    extends = '⟩',
+    precedes = '⟨',
+    eol = '↵',
+}
 
 
 -- -- Colorscheme setup (if wallbash.vim exists)

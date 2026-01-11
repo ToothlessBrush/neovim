@@ -2,25 +2,9 @@ return {
     -- LSP Config
     {
         "neovim/nvim-lspconfig",
-        config = function()
-            local lspconfig = require("lspconfig")
-
-            -- Lua LSP
-            lspconfig.lua_ls.setup({
-                settings = {
-                    Lua = {
-                        diagnostics = { globals = { "vim" } },
-                    },
-                },
-            })
-
-            vim.g.lspconfig_skip_setup = { "rust-analyzer" }
-
-            -- Other servers
-            lspconfig.pyright.setup({})
-            lspconfig.glsl_analyzer.setup({})
-            -- Enhanced Clangd for embedded development
-            lspconfig.clangd.setup({
+        config = function(_, _)
+            -- System-installed clangd (not managed by Mason)
+            vim.lsp.config['clangd'] = {
                 cmd = {
                     "clangd",
                     "--background-index",
@@ -32,32 +16,51 @@ return {
                     "--header-insertion-decorators",
                     "--pch-storage=memory",
                     "--offset-encoding=utf-16",
-                    "--query-driver=/usr/bin/arm-none-eabi-*", -- Important for cross-compilation
                 },
                 init_options = {
-                    compilationDatabasePath = "build", -- Where your compile_commands.json is
-                    fallbackFlags = {
-                        "-std=c11",
-                        "-Wall",
-                        "-Wextra",
-                        "-I/usr/arm-none-eabi/include",
-                        "-DSTM32F411xE",
-                    },
+                    compilationDatabasePath = "build",
                 },
                 filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
-                root_dir = lspconfig.util.root_pattern(
-                    "compile_commands.json",
-                    "compile_flags.txt",
-                    ".git",
-                    "CMakeLists.txt"
-                ),
+            }
+            vim.lsp.enable('clangd')
+        end,
+    },
+    -- Mason
+    {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        config = true,
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",
+                    "pyright",
+                    "ts_ls",
+                    "glsl_analyzer",
+                    "wgsl_analyzer",
+                    "gdscript",
+                },
+                automatic_enable = true,
             })
 
-            -- TypeScript LSP - try both names
-            lspconfig.ts_ls.setup({
-                -- Explicit TypeScript/JavaScript file types
+            -- Custom config for lua_ls
+            vim.lsp.config['lua_ls'] = {
+                settings = {
+                    Lua = {
+                        diagnostics = { globals = { "vim" } },
+                    },
+                },
+            }
+
+            -- Custom config for ts_ls
+            vim.lsp.config['ts_ls'] = {
                 filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-                -- Additional settings
                 settings = {
                     typescript = {
                         inlayHints = {
@@ -67,27 +70,13 @@ return {
                             includeInlayVariableTypeHints = true,
                         },
                     },
-                },
-            })
-        end,
-    },
+                }
+            }
 
-    -- Mason
-    {
-        "williamboman/mason.nvim",
-        build = ":MasonUpdate",
-        config = true,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        opts = {
-            ensure_installed = {
-                "lua_ls",
-                "pyright",
-                "ts_ls", -- Changed from "tsserver" to "ts_ls"
-                "clangd",
-                "glsl_analyzer",
-            },
-        },
+            -- GDScript LSP config
+            vim.lsp.config['gdscript'] = {
+                filetypes = { "gd", "gdscript", "gdscript3" },
+            }
+        end,
     },
 }

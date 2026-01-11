@@ -7,6 +7,7 @@ return {
     { "shaunsingh/nord.nvim" },
     { "rmehri01/onenord.nvim" },
     { "sainnhe/gruvbox-material" },
+    { "sainnhe/everforest" },
     { "ellisonleao/gruvbox.nvim" },
     { "rose-pine/neovim",                name = "rose-pine" },
 
