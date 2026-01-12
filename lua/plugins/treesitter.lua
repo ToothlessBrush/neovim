@@ -1,40 +1,27 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    opts = function(_, opts)
-        opts.ensure_installed = opts.ensure_installed or {}
-        vim.list_extend(opts.ensure_installed, {
-            "rust",
-            "toml",
-            "wgsl",
-            "c",
-            "cpp",
-            "typescript",
-            "javascript",
-            "lua",
-            "json",
-            "yaml"
+    config = function()
+        require("nvim-treesitter.configs").setup({
+            ensure_installed = {
+                "rust",
+                "toml",
+                "wgsl",
+                "c",
+                "cpp",
+                "typescript",
+                "javascript",
+                "lua",
+                "json",
+                "yaml",
+                "python",
+            },
+            highlight = {
+                enable = true,
+            },
+            indent = {
+                enable = true,
+            },
         })
-        opts.highlight = opts.highlight or {}
-        opts.highlight.enable = true
-
-        opts.indent = opts.indent or {}
-        opts.indent.enable = true
-
-        -- Optional: manually link highlight groups (in case your theme misses them)
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = "wgsl",
-            callback = function()
-                vim.cmd [[
-                    highlight default link @type Type
-                    highlight default link @function Function
-                    highlight default link @variable Identifier
-                    highlight default link @keyword Keyword
-                    highlight default link @number Number
-                ]]
-            end,
-        })
-        -- Associate .wgsl files with the correct filetype
-        vim.filetype.add({ extension = { wgsl = "wgsl" } })
     end,
 }

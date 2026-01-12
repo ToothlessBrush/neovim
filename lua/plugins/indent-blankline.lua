@@ -3,6 +3,16 @@ return {
     main = "ibl",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-        require("ibl").setup()
+        require("ibl").setup({
+            indent = {
+                char = "│",
+            },
+            scope = {
+                enabled = true,
+                show_start = true,
+                show_end = true,
+                highlight = "IblScope",
+            },
+        })
     end
 }
