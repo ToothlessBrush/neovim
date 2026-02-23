@@ -65,6 +65,12 @@ vim.opt.listchars = {
     space = '·'
 }
 
+vim.filetype.add({
+    extension = {
+        axaml = "xml",
+    },
+})
+
 
 -- -- Colorscheme setup (if wallbash.vim exists)
 -- local vim_dir = vim.fn.fnamemodify(vim.env.MYVIMRC or "", ":h")
@@ -77,6 +83,9 @@ vim.opt.listchars = {
 ------- THEME -------
 require("current-theme")
 
--- Reuse normal background for float windows
-vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#888888", bg = "NONE" }) -- optional border tweak
+vim.api.nvim_set_hl(0, "Normal", { bg = "none", blend = 15 })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", blend = 15 })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#888888", bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "none", blend = 15 })

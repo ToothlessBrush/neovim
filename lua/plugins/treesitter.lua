@@ -15,6 +15,7 @@ return {
                 "json",
                 "yaml",
                 "python",
+                "xml"
             },
             highlight = {
                 enable = true,

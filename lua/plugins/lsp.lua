@@ -29,7 +29,14 @@ return {
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
-        config = true,
+        config = function()
+            require("mason").setup({
+                registries = {
+                    "github:mason-org/mason-registry",
+                    "github:Crashdummyy/mason-registry",
+                },
+            })
+        end,
     },
     {
         "williamboman/mason-lspconfig.nvim",
@@ -44,7 +51,8 @@ return {
                     "ts_ls",
                     "glsl_analyzer",
                     "wgsl_analyzer",
-                    "gdscript",
+                    "lemminx",
+                    "roslyn"
                 },
                 automatic_enable = true,
             })

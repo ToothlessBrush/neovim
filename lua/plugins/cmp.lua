@@ -1,38 +1,49 @@
 return {
     "hrsh7th/nvim-cmp",
     dependencies = {
-        "L3MON4D3/LuaSnip",             -- Snippet engine
-        "saadparwaiz1/cmp_luasnip",     -- Snippet completion source
-        "hrsh7th/cmp-nvim-lsp",         -- LSP completions
-        "hrsh7th/cmp-buffer",           -- Buffer word completion
-        "hrsh7th/cmp-path",             -- File path completion
-        "hrsh7th/cmp-cmdline",          -- Command-line completion
-        "rafamadriz/friendly-snippets", -- Community snippet collection
+        "neovim/nvim-lspconfig",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
+        -- For luasnip users.
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
     },
-    config = function()
+    opts = function()
+        -- Set up nvim-cmp.
         local cmp = require("cmp")
-        local luasnip = require("luasnip")
-
-        require("luasnip.loaders.from_vscode").lazy_load() -- load friendly-snippets
-
-        cmp.setup({
+        return {
             snippet = {
+                -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
-                    luasnip.lsp_expand(args.body)
-                end,
+                    require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+                end
             },
-            mapping = cmp.mapping.preset.insert({
-                ["<Tab>"] = cmp.mapping.select_next_item(),
-                ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-                ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                ["<C-Space>"] = cmp.mapping.complete(),
-            }),
-            sources = cmp.config.sources({
-                { name = "nvim_lsp" },
-                { name = "luasnip" },
-                { name = "buffer" },
-                { name = "path" },
-            }),
-        })
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered()
+            },
+            mapping = cmp.mapping.preset.insert(
+                {
+                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-e>"] = cmp.mapping.abort(),
+                    ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ["<Tab>"] = cmp.mapping.select_next_item(),
+                    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+                }
+            ),
+            sources = cmp.config.sources(
+                {
+                    { name = "luasnip" }, -- For luasnip users.
+                    { name = "nvim_lsp" }
+                },
+                {
+                    { name = "buffer" }
+                }
+            )
+        }
     end,
 }
