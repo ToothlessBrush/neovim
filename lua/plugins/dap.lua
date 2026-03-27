@@ -34,6 +34,19 @@ return {
                 stopOnEntry = false,
                 args = {},
             },
+            {
+                name = "Rust: run example",
+                type = "lldb",
+                request = "launch",
+                program = function()
+                    local example = vim.fn.input("Example name: ")
+                    vim.fn.system("cargo build --example " .. example)
+                    return vim.fn.getcwd() .. "/target/debug/examples/" .. example
+                end,
+                cwd = "${workspaceFolder}",
+                stopOnEntry = false,
+                args = {},
+            },
         }
 
         dap.configurations.c = {
@@ -45,6 +58,17 @@ return {
                 cwd = "${workspaceFolder}",
                 stopOnEntry = false,
                 args = {},
+            },
+            {
+                name = "STM32: attach via OpenOCD",
+                type = "gdb_openocd",
+                request = "attach",
+                target = "extended-remote localhost:3333",
+                program = function()
+                    return vim.fn.input("ELF: ", vim.fn.getcwd() .. "/build/", "file")
+                end,
+                cwd = "${workspaceFolder}",
+                stopAtBeginningOfMainSubprogram = false,
             },
         }
         dap.configurations.cpp = dap.configurations.c
