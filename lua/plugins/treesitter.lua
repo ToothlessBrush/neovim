@@ -1,28 +1,21 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     build = ":TSUpdate",
+    lazy = false,
     config = function()
-        require("nvim-treesitter.configs").setup({
-            ensure_installed = {
-                "rust",
-                "toml",
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function() pcall(vim.treesitter.start) end,
+        })
+        require("nvim-treesitter").setup({
+            ensure_install = {
+                "lua", "python",
+                "typescript", "javascript",
+                "c", "cpp",
+                "rust", "toml",
                 "wgsl",
-                "c",
-                "cpp",
-                "typescript",
-                "javascript",
-                "lua",
-                "json",
-                "yaml",
-                "python",
-                "xml"
-            },
-            highlight = {
-                enable = true,
-            },
-            indent = {
-                enable = true,
-            },
+                "json", "yaml", "xml",
+            }
         })
     end,
 }

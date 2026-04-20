@@ -51,8 +51,7 @@ return {
                     "ts_ls",
                     "glsl_analyzer",
                     "wgsl_analyzer",
-                    "lemminx",
-                    "roslyn"
+                    "lemminx"
                 },
                 automatic_enable = true,
             })
