@@ -9,7 +9,7 @@ return {
         require("nvim-tree").setup({
             hijack_netrw = true,
             view = {
-                width = 30,
+                width = 40,
                 side = "left",
             },
             update_focused_file = {

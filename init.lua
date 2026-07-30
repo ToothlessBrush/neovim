@@ -1,3 +1,8 @@
+-- compat shim: Neovim removed ft_to_lang; telescope still calls it
+if vim.treesitter.language and not vim.treesitter.language.ft_to_lang then
+    vim.treesitter.language.ft_to_lang = vim.treesitter.language.get_lang
+end
+
 require("config.lazy")
 require("config.keymaps")
 

@@ -6,12 +6,15 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic
 
 -- lsp
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition" })
+vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Goto type definition" })
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto declaration" })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Goto implementation" })
 vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Goto references" })
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature help" })
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature help (insert)" })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
+vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 
 -- navigation
 vim.keymap.set("n", "<M-h>", "<C-w>h", { desc = "Move to left split" })
@@ -59,6 +62,10 @@ vim.keymap.set('i', '<down>', '<cmd>echo "ARROW KEYS ARE BANNED"<CR>')
 vim.keymap.set("n", "<F5>", function()
     require("dap").continue()
 end, { desc = "DAP Continue" })
+
+vim.keymap.set("n", "<F4>", function()
+    require("dap").pause()
+end, { desc = "DAP Pause" })
 
 vim.keymap.set("n", "<F1>", function()
     require("dap").step_over()
